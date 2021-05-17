@@ -1,7 +1,7 @@
 pipeline {
     agent any    
     environment {
-        registryName = 'acrjenkins'
+        registryname = 'acrjenkins'
     }
 
     stages{
@@ -14,7 +14,7 @@ pipeline {
         stage('Building image') {
             steps{
                 sh '''
-                docker build -t registryName .
+                docker build -t acrjenkins .
                 '''
             }
         }
