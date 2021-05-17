@@ -1,7 +1,10 @@
 pipeline {
     agent any    
     environment {
-        registry = 'acrjenkins'
+        registry = 'acrjenkins.azurecr.io/azure-vote-front'
+        registryCredential = 'ACR'
+        registryUrl = 'acrjenkins.azurecr.io'
+        dockerImage = ''
     }
 
     stages{
@@ -10,6 +13,7 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/cgmartinezceron/jenkins.git']]])
             }
         }
+
         // Building Docker images
         stage('Building image') {
             steps{
@@ -21,5 +25,17 @@ pipeline {
                 }
             }
         }
+
+        // Uploading Docker images into ACR
+        stage('Upload Image to ACR') {
+            steps{    
+                script {
+                    docker.withRegistry( "http://${registryUrl}", registryCredential ) {
+                    dockerImage.push()
+                    }
+                }
+            }
+        }
+
     }
 }
