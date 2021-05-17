@@ -1,7 +1,7 @@
 pipeline {
     agent any    
     environment {
-        registry = 'azure-vote-front'
+        registry = 'python-app'
         registryCredential = 'acrjenkins'
         registryUrl = 'acrjenkins.azurecr.io'
         dockerImage = ''
@@ -52,6 +52,20 @@ pipeline {
                 }
             }
 
+        }
+
+        stage ('K8S Deploy') {
+            steps {
+                script {
+                    dir("dockertoacr"){
+                        kubernetesDeploy(
+                            configs: 'k8s-deployment.yaml',
+                            kubeconfigId: 'aks',
+                            enableConfigSubstitution: true
+                            )
+                    }
+                }
+            }
         }
     }
 }
