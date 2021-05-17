@@ -1,7 +1,7 @@
 pipeline {
     agent any    
     environment {
-        registry = 'acrjenkins.azurecr.io/azure-vote-front'
+        registry = 'azure-vote-front'
         registryCredential = 'acrjenkins'
         registryUrl = 'acrjenkins.azurecr.io'
         dockerImage = ''
