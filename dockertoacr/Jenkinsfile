@@ -3,7 +3,10 @@ pipeline {
 
     stages{
         stage ('Checkout') {
-            checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/cgmartinezceron/jenkins.git']]])
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/cgmartinezceron/jenkins.git']]])
+            }
+            
         }
     }
 }
