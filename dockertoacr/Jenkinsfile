@@ -1,7 +1,7 @@
 pipeline {
     agent any    
     environment {
-        registryname = 'acrjenkins'
+        registry = 'acrjenkins'
     }
 
     stages{
@@ -13,11 +13,11 @@ pipeline {
         // Building Docker images
         stage('Building image') {
             steps{
-                sh '''
-                cd ./dockertoacr
-                docker build -t acrjenkins .
-                cd ..
-                '''
+                script {
+                    
+                    dockerImage = docker.build registry
+                    
+                }
             }
         }
     }
