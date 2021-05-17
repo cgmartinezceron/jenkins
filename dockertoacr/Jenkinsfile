@@ -14,7 +14,7 @@ pipeline {
         stage('Building image') {
             steps{
                 sh '''
-                docker build -t acrjenkins .
+                docker build -t acrjenkins dockertoacr/Dockerfile
                 '''
             }
         }
