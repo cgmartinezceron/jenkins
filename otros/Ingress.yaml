@@ -13,4 +13,3 @@ spec:
           serviceName: jenkins
           servicePort: 80
         path: /
---
